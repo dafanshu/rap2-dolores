@@ -1,0 +1,26 @@
+version: '2.2'
+services:
+  dolores:
+    # 容器名称
+    container_name: rap2-dolores
+    
+    # 通过Dockerfile来构建本地镜像
+    build: .
+    
+    # 通过images来构建，这里的地址暂不适用，因为src/config中的配置需要根据自己的服务器来动态构建
+    # image rynxiao/rap2-dolores-nodejs
+    
+    # 指定工作目录
+    working_dir: /home/rap2-dolores
+    
+    # 指定生产环境
+    environment:
+      - NODE_ENV=production
+      
+    # 启动http-server，并映射端口到容器内部8081上
+    command: /bin/sh -c 'http-server ./build -s -p 8081'
+    privileged: true
+    
+    # expose port 38081
+    ports:
+      - "38081:8081"
